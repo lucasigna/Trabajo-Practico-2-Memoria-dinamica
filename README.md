@@ -1,2 +1,4 @@
-# Trabajo Practico 2 Memoria dinámica
+# Trabajo Practico N°2 - Memoria dinámica
+
+Alumno: Lucas I. González
  
