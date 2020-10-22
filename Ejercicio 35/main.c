@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../Trabajo Práctico 2/Trabajo-Practico-2-Memoria-din-mica/Ejercicio 35/header.h"
-#include "../Trabajo Práctico 2/Trabajo-Practico-2-Memoria-din-mica/Ejercicio 35/funciones.c"
+#include "header.h"
+#include "funciones.c"
 
-struct persona_pila *p = NULL, *aux;
+struct persona_pila *f = NULL, *aux;
 
 int main()
 {
+    str_aux ap;
+    ap.p = NULL;
+
     int op;
     do
     {
@@ -20,7 +23,7 @@ int main()
         {
             case 1:
                 system("cls");
-                escribir();
+                ap = escribir(ap);
                 break;
             case 2:
                 system("cls");

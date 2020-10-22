@@ -8,13 +8,16 @@ Hacer un programa que tome los datos de contacto de una persona (Nombre, Apellid
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../Trabajo Práctico 2/Trabajo-Practico-2-Memoria-din-mica/Ejercicio 35/header.h"
-#include "../Trabajo Práctico 2/Trabajo-Practico-2-Memoria-din-mica/Ejercicio 35/funciones.c"
+#include "header.h"
+#include "funciones.c"
 
-struct persona_pila *p = NULL, *aux;
+struct persona_pila *f = NULL, *aux;
 
 int main()
 {
+    str_aux ap;
+    ap.p = NULL;
+
     int op;
     do
     {
@@ -27,7 +30,7 @@ int main()
         {
             case 1:
                 system("cls");
-                escribir();
+                ap = escribir(ap);
                 break;
             case 2:
                 system("cls");
@@ -54,7 +57,11 @@ typedef struct persona_pila{
         struct persona_pila * lazo;
         }persona;
 
-void escribir(void);
+typedef struct{
+        struct persona_pila *p, *aux;
+        } str_aux;
+
+str_aux escribir(str_aux ap);
 void mostrar(void);
 
 #endif
@@ -64,30 +71,31 @@ void mostrar(void);
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../Trabajo Práctico 2/Trabajo-Practico-2-Memoria-din-mica/Ejercicio 35/main.c"
 
-void apilar(persona p_pila)
+str_aux apilar(persona p_pila, str_aux ap)
 {
     //Reservo el espacio de memoria
-    aux = (struct persona_pila *) malloc(sizeof(struct persona_pila));
-    if(aux)
+    ap.aux = (struct persona_pila *) malloc(sizeof(struct persona_pila));
+    if(ap.aux)
     {
         //Cargo los datos
-        strcpy(aux->nombre,p_pila.nombre);
-        strcpy(aux->apellido,p_pila.apellido);
-        aux->edad = p_pila.edad;
-        aux->telefono = p_pila.telefono;
-        strcpy(aux->mail,p_pila.mail);
+        printf("%s\n",ap.aux->nombre);
+        strcpy(ap.aux->nombre,p_pila.nombre);
+        strcpy(ap.aux->apellido,p_pila.apellido);
+        ap.aux->edad = p_pila.edad;
+        ap.aux->telefono = p_pila.telefono;
+        strcpy(ap.aux->mail,p_pila.mail);
         //Hago que el lazo apunte al primero
-        aux->lazo = p;
+        ap.aux->lazo = ap.p;
         //El primero apunta al creado
-        p = aux;
+        ap.p = ap.aux;
     } else {
         printf("Memoria insuficiente\n");
     }
+    return ap;
 }
 
-void escribir()
+str_aux escribir(str_aux ap)
 {
     persona d;
     fflush(stdin);
@@ -108,7 +116,7 @@ void escribir()
     fflush(stdin);
     if(d.edad > 21)
     {
-        apilar(d);
+        ap = apilar(d,ap);
         FILE *p;
         p = fopen("contactos.dat","ab");
         fwrite(&d,sizeof(d),1,p);
@@ -121,6 +129,7 @@ void escribir()
         printf("Tiene que ser mayor a 21 años\nNo se guardo el registro\n");
         system("pause");
     }
+    return ap;
 }
 
 void mostrar()

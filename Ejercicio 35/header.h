@@ -11,7 +11,11 @@ typedef struct persona_pila{
         struct persona_pila * lazo;
         }persona;
 
-void escribir(void);
+typedef struct{
+        struct persona_pila *p, *aux;
+        } str_aux;
+
+str_aux escribir(str_aux ap);
 void mostrar(void);
 
 #endif
