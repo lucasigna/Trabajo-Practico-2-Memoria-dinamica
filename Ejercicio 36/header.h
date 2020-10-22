@@ -11,9 +11,13 @@ typedef struct persona_pila{
         struct persona_pila * lazo;
         }persona;
 
-void leerArchivo(void);
-void agregarRegistro(persona d);
-void guardarLista(void);
+typedef struct{
+        struct persona_pila *p, *u, *aux, *r;
+        } str_aux;
+
+void leerArchivo(str_aux ap);
+str_aux agregarRegistro(persona d, str_aux ap);
+void guardarLista(str_aux ap);
 void imprimirLista(void);
 
 #endif

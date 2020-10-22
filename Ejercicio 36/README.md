@@ -8,11 +8,12 @@ Hacer un programa que lea al archivo "contactos.dat" creado en el Ejercicio 35 y
 #include "header.h"
 #include "funciones.c"
 
-struct persona_pila *p = NULL, *u = NULL, *aux, *r;
-
 int main()
 {
-    leerArchivo();
+    str_aux ap;
+    ap.p = NULL;
+    ap.u = NULL;
+    leerArchivo(ap);
     return 0;
 }
 ```
@@ -31,9 +32,13 @@ typedef struct persona_pila{
         struct persona_pila * lazo;
         }persona;
 
-void leerArchivo(void);
-void agregarRegistro(persona d);
-void guardarLista(void);
+typedef struct{
+        struct persona_pila *p, *u, *aux, *r;
+        } str_aux;
+
+void leerArchivo(str_aux ap);
+str_aux agregarRegistro(persona d, str_aux ap);
+void guardarLista(str_aux ap);
 void imprimirLista(void);
 
 #endif
@@ -45,7 +50,7 @@ void imprimirLista(void);
 #include <string.h>
 #include "main.c"
 
-void leerArchivo()
+void leerArchivo(str_aux ap)
 {
     persona d;
     FILE *f;
@@ -55,79 +60,79 @@ void leerArchivo()
         fread(&d,sizeof(d),1,f);
         while(!feof(f))
         {
-            agregarRegistro(d);
+            ap = agregarRegistro(d,ap);
             fread(&d,sizeof(d),1,f);
         }
     } else {
         printf("No hay archivos guardados.\n");
     }
     printf("\n");
-    guardarLista();
+    guardarLista(ap);
     fclose(f);
 }
-void agregarRegistro(persona d)
+str_aux agregarRegistro(persona d, str_aux ap)
 {
-    aux = (struct persona_pila *) malloc(sizeof(struct persona_pila));
-    if(aux)
+    ap.aux = (struct persona_pila *) malloc(sizeof(struct persona_pila));
+    if(ap.aux)
     {
-        strcpy(aux->nombre,d.nombre);
-        strcpy(aux->apellido,d.apellido);
-        aux->edad = d.edad;
-        aux->telefono = d.telefono;
-        strcpy(aux->mail,d.mail);
-        if(p == NULL)
+        strcpy(ap.aux->nombre,d.nombre);
+        strcpy(ap.aux->apellido,d.apellido);
+        ap.aux->edad = d.edad;
+        ap.aux->telefono = d.telefono;
+        strcpy(ap.aux->mail,d.mail);
+        if(ap.p == NULL)
         {
-            p=u=aux;
-            u->lazo = NULL;
+            ap.p=ap.u=ap.aux;
+            ap.u->lazo = NULL;
         } else {
-            r = p;
+            ap.r = ap.p;
             while(1)
             {
-                if(strcmp(r->apellido,aux->apellido) > 0)
+                if(strcmp(ap.r->apellido,ap.aux->apellido) > 0)
                 {
-                    aux->lazo = p;
-                    p = aux;
+                    ap.aux->lazo = ap.p;
+                    ap.p = ap.aux;
                     break;
                 }
-                while(r->lazo)
+                while(ap.r->lazo)
                 {
-                    if(strcmp(r->lazo->apellido,aux->apellido) < 0 )
+                    if(strcmp(ap.r->lazo->apellido,ap.aux->apellido) < 0 )
                     {
-                        r = r->lazo;
+                        ap.r = ap.r->lazo;
                     } else {
                         break;
                     }
                 }
-                if(r == u)
+                if(ap.r == ap.u)
                 {
-                    u->lazo = aux;
-                    u = aux;
-                    u->lazo = NULL;
+                    ap.u->lazo = ap.aux;
+                    ap.u = ap.aux;
+                    ap.u->lazo = NULL;
                     break;
                 }
-                aux->lazo = r->lazo;
-                r->lazo = aux;
+                ap.aux->lazo = ap.r->lazo;
+                ap.r->lazo = ap.aux;
                 break;
             }
         }
     }
+    return ap;
 }
-void guardarLista()
+void guardarLista(str_aux ap)
 {
     FILE *f;
     f = fopen("contactos_ordenados.dat","ab");
-    aux = p;
-    while(aux)
+    ap.aux = ap.p;
+    while(ap.aux)
     {
-        ///Guardar registro
         persona d;
-        strcpy(d.nombre,aux->nombre);
-        strcpy(d.apellido,aux->apellido);
-        d.edad = aux->edad;
-        d.telefono = aux->telefono;
-        strcpy(d.mail,aux->mail);
+        strcpy(d.nombre,ap.aux->nombre);
+        strcpy(d.apellido,ap.aux->apellido);
+        d.edad = ap.aux->edad;
+        d.telefono = ap.aux->telefono;
+        strcpy(d.mail,ap.aux->mail);
         fwrite(&d,sizeof(d),1,f);
-        aux = aux->lazo;
+        ap.aux = ap.aux->lazo;
     }
     fclose(f);
     imprimirLista();

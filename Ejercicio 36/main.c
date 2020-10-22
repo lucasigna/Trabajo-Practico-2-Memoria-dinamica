@@ -4,11 +4,12 @@
 #include "header.h"
 #include "funciones.c"
 
-struct persona_pila *p = NULL, *u = NULL, *aux, *r;
-
 int main()
 {
-    leerArchivo();
+    str_aux ap;
+    ap.p = NULL;
+    ap.u = NULL;
+    leerArchivo(ap);
     return 0;
 }
 
