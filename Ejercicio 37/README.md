@@ -1,4 +1,4 @@
-# Ejercicio 36
+# Ejercicio 37
 Existe un archivo llamado "datos.dat", de tipo binario, cuya organización es secuencial. Los datos están organizados según la siguiente estructura:
 ```c
 struct d {                                                                                            
