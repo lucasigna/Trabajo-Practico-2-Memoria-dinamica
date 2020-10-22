@@ -77,7 +77,6 @@ str_aux apilar(persona p_pila, str_aux ap)
     if(ap.aux)
     {
         //Cargo los datos
-        printf("%s\n",ap.aux->nombre);
         strcpy(ap.aux->nombre,p_pila.nombre);
         strcpy(ap.aux->apellido,p_pila.apellido);
         ap.aux->edad = p_pila.edad;
