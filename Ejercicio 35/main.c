@@ -4,8 +4,6 @@
 #include "header.h"
 #include "funciones.c"
 
-struct persona_pila *f = NULL, *aux;
-
 int main()
 {
     str_aux ap;

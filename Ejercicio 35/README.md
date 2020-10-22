@@ -11,8 +11,6 @@ Hacer un programa que tome los datos de contacto de una persona (Nombre, Apellid
 #include "header.h"
 #include "funciones.c"
 
-struct persona_pila *f = NULL, *aux;
-
 int main()
 {
     str_aux ap;
