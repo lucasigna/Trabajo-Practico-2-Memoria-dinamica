@@ -86,21 +86,16 @@ str_aux agregarRegistro(persona d, str_aux ap)
             ap.u->lazo = NULL;
         } else {
             ap.r = ap.p;
-            while(1)
+            if(strcmp(ap.r->apellido,ap.aux->apellido) > 0)
             {
-                if(strcmp(ap.r->apellido,ap.aux->apellido) > 0)
-                {
-                    ap.aux->lazo = ap.p;
-                    ap.p = ap.aux;
-                    break;
-                }
+                ap.aux->lazo = ap.p;
+                ap.p = ap.aux;
+            } else {
                 while(ap.r->lazo)
                 {
                     if(strcmp(ap.r->lazo->apellido,ap.aux->apellido) < 0 )
                     {
                         ap.r = ap.r->lazo;
-                    } else {
-                        break;
                     }
                 }
                 if(ap.r == ap.u)
@@ -108,11 +103,10 @@ str_aux agregarRegistro(persona d, str_aux ap)
                     ap.u->lazo = ap.aux;
                     ap.u = ap.aux;
                     ap.u->lazo = NULL;
-                    break;
+                } else {
+                    ap.aux->lazo = ap.r->lazo;
+                    ap.r->lazo = ap.aux;
                 }
-                ap.aux->lazo = ap.r->lazo;
-                ap.r->lazo = ap.aux;
-                break;
             }
         }
     }
@@ -125,6 +119,7 @@ void guardarLista(str_aux ap)
     ap.aux = ap.p;
     while(ap.aux)
     {
+        ///Guardar registro
         persona d;
         strcpy(d.nombre,ap.aux->nombre);
         strcpy(d.apellido,ap.aux->apellido);
