@@ -3,6 +3,7 @@
 #include <string.h>
 
 typedef struct dato_str{
+    int id;
     char desc[60];
     unsigned char potencia;
     unsigned int estado;
@@ -28,6 +29,7 @@ int main()
         printf("1.Agregar un dato\n");
         printf("2.Imprimir y salir\n");
         scanf("%d",&op);
+        fflush(stdin);
         switch(op)
         {
             case 1:
@@ -95,6 +97,7 @@ str_aux agregar(str_aux ap)
 
 void imprimir(str_aux ap)
 {
+    int i = 0;
     FILE *f;
     f = fopen("potencia.dat","ab");
     ap.aux = ap.p;
@@ -102,11 +105,13 @@ void imprimir(str_aux ap)
     while(ap.aux)
     {
         ///Guardar registro
+        i++;
         dato_t d;
+        d.id = i;
         strcpy(d.desc,ap.aux->desc);
         d.potencia = ap.aux->potencia;
         d.estado = ap.aux->estado;
-        printf("  %-8d  %-8c   %-2s  \n",d.estado,d.potencia,d.desc);
+        printf("  %-8d  %-8d   %-2s  %d\n",d.estado,d.potencia,d.desc,d.id);
         fwrite(&d,sizeof(d),1,f);
         ap.aux = ap.aux->lazo;
     }
