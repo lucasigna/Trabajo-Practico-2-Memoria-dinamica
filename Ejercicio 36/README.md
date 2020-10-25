@@ -91,12 +91,9 @@ str_aux agregarRegistro(persona d, str_aux ap)
                 ap.aux->lazo = ap.p;
                 ap.p = ap.aux;
             } else {
-                while(ap.r->lazo)
-                {
-                    if(strcmp(ap.r->lazo->apellido,ap.aux->apellido) < 0 )
-                    {
-                        ap.r = ap.r->lazo;
-                    }
+                while(ap.r->lazo != NULL && (strcmp(ap.r->lazo->apellido,ap.aux->apellido) < 0 ))
+                {                
+                    ap.r = ap.r->lazo;
                 }
                 if(ap.r == ap.u)
                 {

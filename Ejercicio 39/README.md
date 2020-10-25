@@ -89,12 +89,9 @@ str_aux agregar(str_aux ap)
                 ap.aux->lazo = ap.p;
                 ap.p = ap.aux;
             } else {
-                while(ap.r->lazo)
+                while(ap.r->lazo != NULL && (ap.r->lazo->potencia > ap.aux->potencia))
                 {
-                    if(ap.r->lazo->potencia > ap.aux->potencia)
-                    {
-                        ap.r = ap.r->lazo;
-                    }
+                    ap.r = ap.r->lazo;
                 }
                 if(ap.r == ap.u)
                 {
