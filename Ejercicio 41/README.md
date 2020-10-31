@@ -28,7 +28,7 @@ typedef struct repuestos_str{
    long serialNumber;
    char descripcion[40];
    char ubicacion[100];
-   struct repuestos_str *lazo;
+   struct repuestos_str *lazo, *ant;
 }repuestos_t;
 
 typedef struct{
