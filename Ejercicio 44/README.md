@@ -157,6 +157,7 @@ int main()
                 strcpy(aux_ex->repuesto->fecha,aux_pila->fecha);
                 strcpy(aux_ex->repuesto->hora,aux_pila->hora);
                 aux_ex->repuesto->numeroDeOrden = aux_pila->numeroDeOrden;
+                aux_ex->cantidad = 1;
                 if(p_ex == NULL)
                 {
                     p_ex=u_ex=aux_ex;
