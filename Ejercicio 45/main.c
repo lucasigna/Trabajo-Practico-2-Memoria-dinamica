@@ -83,12 +83,15 @@ int main()
                         while(r->lazo != NULL && tiempo_r < tiempo)
                         {
                             r = r->lazo;
-                            dia_r = 10*charToInt(r->fecha[0]) + 1*charToInt(r->fecha[1]);
-                            mes_r = 10*charToInt(r->fecha[3]) + 1*charToInt(r->fecha[4]);
-                            anio_r = 1000*charToInt(r->fecha[6]) + 100*charToInt(r->fecha[7]) + 10*charToInt(r->fecha[8]) + 1*charToInt(r->fecha[9]);
-                            hora_r = 10*charToInt(r->hora[0]) + 1*charToInt(r->hora[1]);
-                            minuto_r = 10*charToInt(r->hora[3]) + 1*charToInt(r->hora[4]);
-                            tiempo_r = 100000000*anio_r + 1000000*mes_r + 10000*dia_r + 100*hora_r + minuto_r;
+                            if(r->lazo)
+                            {
+                                dia_r = 10*charToInt(r->lazo->fecha[0]) + 1*charToInt(r->lazo->fecha[1]);
+                                mes_r = 10*charToInt(r->lazo->fecha[3]) + 1*charToInt(r->lazo->fecha[4]);
+                                anio_r = 1000*charToInt(r->lazo->fecha[6]) + 100*charToInt(r->lazo->fecha[7]) + 10*charToInt(r->lazo->fecha[8]) + 1*charToInt(r->lazo->fecha[9]);
+                                hora_r = 10*charToInt(r->lazo->hora[0]) + 1*charToInt(r->lazo->hora[1]);
+                                minuto_r = 10*charToInt(r->lazo->hora[3]) + 1*charToInt(r->lazo->hora[4]);
+                                tiempo_r = 100000000*anio_r + 1000000*mes_r + 10000*dia_r + 100*hora_r + minuto_r;
+                            }
                         }
                         if(r == u)
                         {
